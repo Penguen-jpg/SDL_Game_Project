@@ -1,10 +1,9 @@
 #include "Tile.h"
 
 Tile::Tile(int srcX, int srcY, int destX, int destY, const char* path)
-	:position(destX, destY)
+	:Object(path), position(destX, destY)
 {
 	SCALE_FACTOR = 2;
-	setTex(path);
 	setSrc(srcX, srcY, TILE_WIDTH, TILE_HEIGHT);
 	setDest(destX, destY, TILE_WIDTH, TILE_HEIGHT);
 }

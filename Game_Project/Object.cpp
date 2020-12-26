@@ -1,7 +1,6 @@
 #include "Object.h"
 
 Object::Object()
-	:SCALE_FACTOR(2), flip(SDL_FLIP_NONE)
 {
 
 }
@@ -9,9 +8,12 @@ Object::Object()
 Object::Object(const char *path)
 	: SCALE_FACTOR(2), flip(SDL_FLIP_NONE)
 {
-	src.x = src.y = 0;
-	dest.x = dest.y = 0;
 	setTex(path);
+}
+
+Object::~Object()
+{
+
 }
 
 void Object::draw()

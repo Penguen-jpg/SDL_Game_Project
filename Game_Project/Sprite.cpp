@@ -13,39 +13,13 @@ Sprite::Sprite(const char * path)
 
 Sprite::~Sprite()
 {
-	//SDL_DestroyTexture(texture);
+	
 }
 
 Status Sprite::getStatus() const
 {
 	return status;
 }
-
-/*SDL_Rect Sprite::getHitbox() const
-{
-	return hitbox;
-}
-
-SDL_Rect Sprite::getAttackRange() const
-{
-	return attackRange;
-}
-
-void Sprite::setHitbox(int x, int y, int w, int h)
-{
-	hitbox.x = x;
-	hitbox.y = y;
-	hitbox.w = w * SCALE_FACTOR;
-	hitbox.h = h * SCALE_FACTOR;
-}
-
-void Sprite::setAttackRange(int x, int y, int w, int h)
-{
-	attackRange.x = x;
-	attackRange.y = y;
-	attackRange.w = w * SCALE_FACTOR;
-	attackRange.h = h * SCALE_FACTOR;
-}*/
 
 void Sprite::playAnimation(int index)
 {

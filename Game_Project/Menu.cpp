@@ -4,7 +4,7 @@ Menu* Menu::menu = NULL;
 Menu::Menu()
 	:playing(false)
 {
-	texture = AssetManager::getAssetManager()->getTexture("assets/menu.png"); //¸ü¤J¹Ï¤ù
+	texture = AssetManager::getAssetManager()->getTexture("assets/menu.png");
 }
 
 Menu::~Menu()

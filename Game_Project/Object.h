@@ -5,10 +5,10 @@ class Object
 	public:
 		Object();
 		Object(const char *path);
+		~Object();
 
 		void draw();//畫出物件
 
-		//getter/setter
 		SDL_Rect getSrc() const;
 		SDL_Rect getDest() const;
 		SDL_Texture* getTex() const;

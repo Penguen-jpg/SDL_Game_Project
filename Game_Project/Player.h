@@ -15,14 +15,13 @@ class Player :public Sprite
 		void wasHit() override;
 		void die() override;
 		void loseHealth(int amount);
-
-		int getHp() const;
 	private:
 		Player(const char *path);
 		~Player();
 
 		static Player* player;//玩家
 		bool isPressed[4] = { false };//對應方向鍵是否被按住
+		InputManager* inputManager;//輸入管理員
 		const int PLAYER_WIDTH;
 		const int PLAYER_HEIGHT;
 		const int PLAYER_HITBOT_WIDTH;

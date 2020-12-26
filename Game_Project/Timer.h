@@ -27,7 +27,7 @@ class Timer
 		//const int FPS = 60;//1秒/60張(60幀)
 		//const int frameDelay = 1000 / FPS;//幀數延遲(1秒/60張 -> 1/60秒/1張)
 		Uint32 frameStart;//總時間
-		Uint32 frameTime;//1幀的時間
+		Uint32 frameTime;//1張畫面的時間
 		float deltaTime;//同frameTime(轉換成秒)
 		Uint32 frameCount;//計算張數
 		//bool pause;//暫停

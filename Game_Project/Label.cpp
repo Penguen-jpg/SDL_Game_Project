@@ -5,7 +5,7 @@ Label::Label(std::string text, const char * path, int size, SDL_Color color, int
 	labelRect.x = x;
 	labelRect.y = y;
 	labelTexture = AssetManager::getAssetManager()->getText(text, color, path, size);
-	SDL_QueryTexture(labelTexture, NULL, NULL, &labelRect.w, &labelRect.h);
+	SDL_QueryTexture(labelTexture, NULL, NULL, &labelRect.w, &labelRect.h);//請求label的寬跟高
 }
 
 Label::~Label()

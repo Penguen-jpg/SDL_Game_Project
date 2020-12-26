@@ -28,7 +28,6 @@ class Game
 		Graphics* graphics;//畫面
 		Menu* menu;//主選單
 		EventManager* eventManager;//事件管理員
-		//SDL_Event event;//事件
 		Map* map;//地圖
 		Player* player;//角色
 		Label* gameOverLabel;//輸掉時顯示的文字

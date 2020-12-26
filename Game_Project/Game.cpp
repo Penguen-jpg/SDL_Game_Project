@@ -1,11 +1,9 @@
 #include "Game.h"
 Game* Game::game = NULL;
 /*
-目標:
+未來目標:
 1.做出記分板(ScoreBoard.h)
 2.可能會多做幾種怪物
-3.重新開始遊戲(暫定為完成，之後回來看要不要改)
-4.解決label造成closeFont回傳錯誤的問題(先做，也許去參考別人的label怎麼寫)
 */
 Game::Game()
 {
@@ -15,6 +13,7 @@ Game::Game()
 	{
 		running = true;
 	}
+	AudioManager::getAudioManager()->playMusic("music/bgm2.wav", -1);
 	menu = Menu::getMenu();
 	eventManager = EventManager::getEventManager();
 	goal = 10;
@@ -81,14 +80,6 @@ void Game::handleEvent()
 	{
 		re = false;
 	}
-	/*if (InputManager->isKeyPressed(SDL_SCANCODE_SPACE))
-	{
-		timer->pauseTimer();
-	}
-	else if (InputManager->isKeyPressed(SDL_SCANCODE_C))
-	{
-		timer->unpauseTimer();
-	}*/
 }
 
 void Game::update()
@@ -124,31 +115,23 @@ void Game::render()
 		map->drawMap();
 
 		player->draw();
-		//graphics->fillRect(&player->getHitbox());
-		//graphics->fillRect(&player->getAttackRange());
-
-		//SDL_RenderFillRect(renderer, &obj->getDest());
 		for (int n = 0; n < Mob::NUMBER_OF_MOBS; n++)
 		{
 			if (!Mob::mobs[n]->isDead())
 			{
 				Mob::mobs[n]->draw();
 			}
-			//graphics->fillRect(&Mob::mobs[n]->getHitbox());
-			//graphics->fillRect(&Mob::mobs[n]->getAttackRange());
 		}
-		playerHp->setText("HP: " + std::to_string(player->getHp()), { 255,255,255 }, "font/joystix.tff", 35);
+		playerHp->setText("HP: " + std::to_string(player->getStatus().hp), { 255,255,255 }, "font/joystix.tff", 35);
 		playerHp->drawLabel();
 		if (victory())
 		{
 			winLabel->drawLabel();
 		}
-		//winLabel->drawLabel();
-		if (gameOver())
+		else if (gameOver())
 		{
 			gameOverLabel->drawLabel();
 		}
-		//gameOverLabel->drawLabel();
 	}
 	else
 	{
@@ -157,7 +140,7 @@ void Game::render()
 	graphics->renderPresent();
 }
 
-void Game::restart()//暫定為完成(之後回來看要不要改)
+void Game::restart()//暫定為完成
 {
 	Mob::release();
 	Timer::getTimer()->resetTimer();
@@ -181,7 +164,7 @@ bool Game::wantToRestart()
 
 bool Game::gameOver() const
 {
-	if (player->getHp() < 1)
+	if (player->getStatus().hp < 1)
 	{
 		return true;
 	}

@@ -6,6 +6,7 @@ Player::Player(const char * path)
 	, PLAYER_HITBOX_HEIGHT(28)
 {
 	init();
+	inputManager = InputManager::getInputManager();
 	animations.emplace(0, Animation(0.5f, 4, true));//靜置的動畫
 	animations.emplace(1, Animation(0.7f, 6, true));//跑步的動畫
 	animations.emplace(2, Animation(0.5f, 6, true));//攻擊的動畫
@@ -32,22 +33,27 @@ void Player::release()
 {
 	delete player;
 	player = NULL;
+	inputManager = NULL;
 }
 
 void Player::init()
 {
+	//初始化位置及速度向量
 	position.x = 400.0f;
 	position.y = 300.0;
 	velocity.x = 0.0f;
 	velocity.y = 0.0f;
+	//初始化來源及目標方塊
 	SCALE_FACTOR = 2;
 	setSrc(0, 0, PLAYER_WIDTH, PLAYER_HEIGHT);
 	setDest(400, 300, PLAYER_WIDTH, PLAYER_HEIGHT);
+	flip = SDL_FLIP_NONE;
+	//初始化角色能力值
 	status.movingSpeed = 3;
 	status.hp = 10;
-	flip = SDL_FLIP_NONE;
 	status.setHitbox(0, 0, PLAYER_HITBOT_WIDTH * SCALE_FACTOR, PLAYER_HITBOX_HEIGHT * SCALE_FACTOR);
 	status.setAttackRange(0, 0, 15 * SCALE_FACTOR, PLAYER_HEIGHT * SCALE_FACTOR);
+	//初始化角色狀態
 	state.active = true;
 	state.attacking = false;
 	state.hit = false;
@@ -122,7 +128,6 @@ void Player::move()
 	{
 		velocity.y = -1.0f;
 		isPressed[1] = true;
-		//std::cout << "up is pressed\n";
 	}
 	else if (InputManager::getInputManager()->isKeyReleased(SDL_SCANCODE_UP))
 	{
@@ -135,7 +140,6 @@ void Player::move()
 		isPressed[2] = true;
 		facingLeft = false;
 		flip = SDL_FLIP_NONE;
-		//std::cout << "right is pressed\n";
 	}
 	else if (InputManager::getInputManager()->isKeyReleased(SDL_SCANCODE_RIGHT))
 	{
@@ -148,7 +152,6 @@ void Player::move()
 		facingLeft = true;
 		isPressed[0] = true;
 		flip = SDL_FLIP_HORIZONTAL;//水平翻轉
-		//std::cout << "left is pressed\n";
 	}
 	else if (InputManager::getInputManager()->isKeyReleased(SDL_SCANCODE_LEFT))
 	{
@@ -159,7 +162,6 @@ void Player::move()
 	{
 		velocity.y = 1.0f;
 		isPressed[3] = true;
-		//std::cout << "down is pressed\n";
 	}
 	else if (InputManager::getInputManager()->isKeyReleased(SDL_SCANCODE_DOWN))
 	{
@@ -183,11 +185,6 @@ void Player::loseHealth(int amount)
 {
 	status.hp -= amount;
 	state.hit= true;
-}
-
-int Player::getHp() const
-{
-	return status.hp;
 }
 
 void Player::attack()

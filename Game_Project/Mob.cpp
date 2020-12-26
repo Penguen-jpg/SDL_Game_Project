@@ -22,8 +22,7 @@ Mob::Mob(const char * path)
 
 Mob::~Mob()
 {
-	//std::cout << "Mob is dead!\n";
-	//SDL_DestroyTexture(texture);
+	
 }
 
 void Mob::release()
@@ -40,7 +39,7 @@ void Mob::release()
 
 void Mob::loseHealth(int amount)
 {
-	hp -= amount;
+	status.hp -= amount;
 	state.hit = true;
 }
 
@@ -58,11 +57,6 @@ void Mob::clearMobs()
 		mobs.erase(mobs.begin());
 		NUMBER_OF_MOBS--;
 	}
-}
-
-int Mob::getHp() const
-{
-	return hp;
 }
 
 void Mob::attack()
@@ -114,16 +108,20 @@ void Mob::die()
 
 void Mob::init()
 {
+	//初始化位置
 	position.x = (float)(rand() % (Graphics::WINDOW_WIDTH - MOB_WIDTH));
 	position.y = (float)(rand() % (Graphics::WINDOW_HEIGHT - MOB_HEIGHT));
+	//初始化來源及目標方塊
 	SCALE_FACTOR = 2;
 	setSrc(0, 0, MOB_WIDTH, MOB_HEIGHT);
 	setDest(0, 0, MOB_WIDTH, MOB_HEIGHT);
-	status.setHitbox(dest.x + 15, dest.y + 50, MOB_HITBOX_WIDTH * SCALE_FACTOR, MOB_HITBOX_HEIGHT * SCALE_FACTOR);
-	status.movingSpeed = 1;
 	flip = SDL_FLIP_NONE;
+	//初始化怪物能力值
+	status.hp = 5;
+	status.movingSpeed = 1;
+	status.setHitbox(dest.x + 15, dest.y + 50, MOB_HITBOX_WIDTH * SCALE_FACTOR, MOB_HITBOX_HEIGHT * SCALE_FACTOR);
 	status.setAttackRange(0, 0, 22 * SCALE_FACTOR, 30 * SCALE_FACTOR);
-	hp = 5;
+	//初始化怪物狀態
 	state.active = true;
 	state.attacking = false;
 	state.hit = false;
@@ -132,14 +130,14 @@ void Mob::init()
 	state.attackTimer = 0.0f;
 	state.hitTimer = 0.0f;
 	state.deathTimer = 0.0f;
+	//標記怪物
 	tag = NUMBER_OF_MOBS;
-	//std::cout << "tag: " << tag << std::endl;
 }
 
 void Mob::update()
 {	
 	//依照上一次的狀態做出動作
-	if (hp < 1 && !state.dead)
+	if (status.hp < 1 && !state.dead)
 	{
 		die();
 	}
