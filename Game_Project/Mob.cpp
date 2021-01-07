@@ -4,11 +4,6 @@ std::vector<Mob*> Mob::mobs;
 int Mob::NUMBER_OF_MOBS = 0;
 int Mob::NUMBER_OF_KILLED_MOBS = 0;
 //目標:暫無
-Mob::Mob()
-{
-	
-}
-
 Mob::Mob(const char * path)
 	:Sprite(path)
 {
@@ -208,16 +203,6 @@ void Mob::move()
 	//移動
 	position.x += dx * status.movingSpeed;
 	position.y += dy * status.movingSpeed;
-
-	/*if (facingLeft)
-	{
-		//面向左邊時需要考慮角色寬度(圖片的關係)
-		setHitbox(dest.x + MOB_WIDTH + 15, dest.y + 50, MOB_HITBOX_WIDTH, MOB_HITBOX_HEIGHT);
-	}
-	else
-	{
-		setHitbox(dest.x + 15, dest.y + 50, MOB_HITBOX_WIDTH, MOB_HITBOX_HEIGHT);
-	}*/
 }
 
 void Mob::lockPlayer()

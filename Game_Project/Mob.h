@@ -6,7 +6,6 @@
 class Mob :public Sprite
 {
 	public:
-		Mob();
 		Mob(const char* path);
 		~Mob();
 

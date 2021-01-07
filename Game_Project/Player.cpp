@@ -33,7 +33,6 @@ void Player::release()
 {
 	delete player;
 	player = NULL;
-	inputManager = NULL;
 }
 
 void Player::init()

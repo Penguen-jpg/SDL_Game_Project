@@ -1,10 +1,5 @@
 #include "Object.h"
 
-Object::Object()
-{
-
-}
-
 Object::Object(const char *path)
 	: SCALE_FACTOR(2), flip(SDL_FLIP_NONE)
 {

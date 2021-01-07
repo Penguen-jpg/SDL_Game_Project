@@ -3,7 +3,6 @@
 class Object
 {
 	public:
-		Object();
 		Object(const char *path);
 		~Object();
 

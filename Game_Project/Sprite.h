@@ -9,7 +9,6 @@
 class Sprite :public Object
 {
 	public:
-		Sprite();
 		Sprite(const char* path);
 		~Sprite();
 
